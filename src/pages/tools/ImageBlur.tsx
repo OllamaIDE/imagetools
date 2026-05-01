@@ -1,0 +1,93 @@
+import { useState, useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { Upload, Download } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent } from '@/components/ui/card';
+import { ToolPageLayout } from '@/components/ToolPageLayout';
+import { TOOLS } from '@/config/tools';
+import { fileToCanvas, canvasToBlob } from '@/utils/imageProcessing';
+import { SEOHead } from '@/components/SEOHead';
+
+const tool = TOOLS.find(t => t.id === 'image-blur')!;
+
+export default function ImageBlur() {
+  const [file, setFile] = useState<File | null>(null);
+  const [blurRadius, setBlurRadius] = useState([10]);
+  const [blurType, setBlurType] = useState('gaussian');
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [result, setResult] = useState<string | null>(null);
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    if (acceptedFiles.length > 0) {
+      setFile(acceptedFiles[0]);
+      setResult(null);
+    }
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: { 'image/*': [] }, multiple: false });
+
+  const handleProcess = async () => {
+    if (!file) return;
+    setIsProcessing(true);
+    try {
+      const canvas = await fileToCanvas(file);
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.filter = `blur(${blurRadius[0]}px)`;
+        ctx.drawImage(canvas, 0, 0);
+        const blob = await canvasToBlob(canvas);
+        setResult(URL.createObjectURL(blob));
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <ToolPageLayout toolId={tool.id} title={tool.name} description={tool.description} icon={tool.icon}>
+      <SEOHead title="Blur Image Online Free — Gaussian Blur, Box Blur, Radial Blur" description="Apply Gaussian, box or radial blur to images online. Blur entire image or select a region. Free, browser-based tool." keywords="blur image online, gaussian blur, image blur tool" canonical="/tools/image-blur" />
+      <div className="space-y-8">
+        <div {...getRootProps()} className={`border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-colors ${isDragActive ? 'border-blue-500 bg-blue-50' : 'border-zinc-200 hover:border-zinc-300 bg-zinc-50/50'}`}>
+          <input {...getInputProps()} />
+          <div className="flex flex-col items-center space-y-4">
+            <div className="p-4 bg-white rounded-full shadow-sm"><Upload className="h-8 w-8 text-zinc-400" /></div>
+            {file ? <p className="font-medium">{file.name}</p> : <p className="font-medium text-zinc-900">Click or drag image to blur</p>}
+          </div>
+        </div>
+        {file && (
+          <Card className="border-zinc-200 shadow-none">
+            <CardContent className="p-6 space-y-6">
+              <div className="space-y-4">
+                <label className="text-sm font-medium">Blur Radius ({blurRadius[0]}px)</label>
+                <Slider value={blurRadius} onValueChange={setBlurRadius} min={0} max={50} step={1} />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Blur Type</label>
+                <Tabs value={blurType} onValueChange={setBlurType}>
+                  <TabsList className="w-full grid grid-cols-3">
+                    <TabsTrigger value="gaussian">Gaussian</TabsTrigger>
+                    <TabsTrigger value="box">Box</TabsTrigger>
+                    <TabsTrigger value="radial" disabled>Radial</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </div>
+              <Button onClick={handleProcess} disabled={isProcessing} className="w-full h-12 bg-blue-600 hover:bg-blue-700">
+                {isProcessing ? 'Blurring...' : 'Apply Blur'}
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+        {result && (
+          <div className="space-y-6 text-center">
+            <div className="rounded-xl border border-zinc-200 overflow-hidden bg-zinc-50 inline-block p-4"><img src={result} alt="Blurred" className="max-h-96 object-contain" /></div>
+            <Button onClick={() => { const a = document.createElement('a'); a.href = result; a.download = `blurred-${file?.name}`; a.click(); }} className="w-full space-x-2"><Download className="h-4 w-4" /><span>Download Blurred Image</span></Button>
+          </div>
+        )}
+      </div>
+    </ToolPageLayout>
+  );
+}

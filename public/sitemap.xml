@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://imagetools.example.com/</loc><priority>1.0</priority></url>
+  <url><loc>https://imagetools.example.com/privacy</loc><priority>0.5</priority></url>
+  <url><loc>https://imagetools.example.com/terms</loc><priority>0.5</priority></url>
+  <url><loc>https://imagetools.example.com/about</loc><priority>0.6</priority></url>
+  <url><loc>https://imagetools.example.com/contact</loc><priority>0.6</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-compressor</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-resizer</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-cropper</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-converter</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-to-base64</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/base64-to-image</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-watermark</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-brightness</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-blur</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-grayscale</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-flip</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-rotate</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-border</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-merger</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-splitter</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/pdf-to-image</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-to-pdf</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/svg-to-png</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/png-to-svg</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/ico-converter</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/webp-converter</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-color-picker</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/exif-remover</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/image-metadata</loc><priority>0.8</priority></url>
+  <url><loc>https://imagetools.example.com/tools/bulk-resize</loc><priority>0.8</priority></url>
+</urlset>
